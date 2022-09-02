@@ -1,29 +1,37 @@
-import mongodb from 'mongodb';
-import express from 'express'
+import { MongoClient } from 'mongodb';
+import express from 'express';
 
-let mongoClient = new mongodb.MongoClient('mongodb+srv://Senails:opYN8bQReMNppWsE@cluster0.6f5yy4e.mongodb.net/', {
+import { CheckDataForRegistr, CheckDataForLogin } from './utils/checkdata.js'
+import { registr, login, authme } from './controllers/auth.js'
+import { addcoin } from './controllers/addcoin.js'
+import { checkaddcoin } from './utils/checkcoin.js'
+
+let app = express();
+app.use(express.json());
+const mongopassword = 'opYN8bQReMNppWsE';
+export const mongoClient = new MongoClient(`mongodb+srv://Senails:${mongopassword}@cluster0.6f5yy4e.mongodb.net/`, {
     useUnifiedTopology: true
 });
 
-let app = express();
-
-app.get('/', (req, res) => {
-    mongoClient.connect(async function(error, mongo) {
-        let db = mongo.db('MyDataBase');
-        let coll = db.collection('red');
-        let text = await coll.findOne();
-        res.send(text)
-    });
-})
 
 
 
 
-let PORT = process.env.PORT || 1234
+
+app.post('/auth/registr', CheckDataForRegistr, registr);
+app.post('/auth/login', CheckDataForLogin, login);
+app.post('/auth/me', authme);
+app.post('/addcoins', checkaddcoin, addcoin)
+
+
+
+
+
+
+let PORT = process.env.PORT || 3000
 app.listen(PORT, function() {
     console.log('running');
 });
-
 
 
 
