@@ -4,10 +4,9 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 const secretJWT = 'fdgs12h13fsvh31hjgfds31njfv324';
 
-export function registr(req, res) {
-    mongoClient.connect(async(err, mongo) => {
-        if (err) return res.status(500).type('text/plain').send('Ошибка подключения к базе данных');
 
+export function registr(mongo) {
+    return async function(req, res) {
         let db = mongo.db('MyDataBase');
         let users = db.collection('users');
 
@@ -35,14 +34,12 @@ export function registr(req, res) {
             monetbalance: user.monetbalance,
             cristalbalance: user.cristalbalance,
         });
-    })
+    }
 }
 
-export async function login(req, res) {
-    const bodyIP = req.ip;
-
-    mongoClient.connect(async(err, mongo) => {
-        if (err) return res.status(500).type('text/plain').send('Ошибка подключения к базе данных');
+export function login(mongo) {
+    return async function(req, res) {
+        const bodyIP = req.ip;
 
         let db = mongo.db('MyDataBase');
         let users = db.collection('users');
@@ -59,15 +56,15 @@ export async function login(req, res) {
         });
 
         await users.updateOne({ email: req.body.email }, { $set: { lastIP: bodyIP } });
-    })
+
+    }
 }
 
-export function authme(req, res) {
-    const bodyID = jwt.decode(req.body.token, secretJWT).id;
-    const bodyIP = req.ip;
+export function authme(mongo) {
+    return async function(req, res) {
+        const bodyID = jwt.decode(req.body.token, secretJWT).id;
+        const bodyIP = req.ip;
 
-    mongoClient.connect(async(err, mongo) => {
-        if (err) return res.status(500).type('text/plain').send('Ошибка подключения к базе данных');
         let db = mongo.db('MyDataBase');
         let users = db.collection('users');
 
@@ -91,8 +88,9 @@ export function authme(req, res) {
         } else return res.status(400).json({
             message: 'Пожалуйста войдите в аккаунт'
         })
-    });
+    }
 }
+
 
 
 

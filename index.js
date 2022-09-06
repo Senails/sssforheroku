@@ -16,16 +16,16 @@ export const mongoClient = new MongoClient(`mongodb+srv://Senails:${mongopasswor
 });
 
 
+mongoClient.connect(async function(err, mongo) {
+    if (err) return console.log('Ошибка подключения в базе данных')
+
+    app.post('/auth/registr', CheckDataForRegistr(mongo), registr(mongo));
+    app.post('/auth/login', CheckDataForLogin(mongo), login(mongo));
+    app.post('/auth/me', authme(mongo));
+    app.post('/addcoins', checkaddcoin, addcoin(mongo))
 
 
-app.post('/auth/registr', CheckDataForRegistr, registr);
-app.post('/auth/login', CheckDataForLogin, login);
-app.post('/auth/me', authme);
-app.post('/addcoins', checkaddcoin, addcoin)
-
-
-
-
+})
 
 
 let PORT = process.env.PORT || 4000
