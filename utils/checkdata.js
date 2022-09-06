@@ -17,14 +17,14 @@ export async function CheckDataForRegistr(req, res, next) {
 
             let usercheck1 = await users.findOne({ email: bodyemail })
             if (usercheck1 !== null) {
-                return res.json({
+                return res.status(400).json({
                     message: 'Email не подходит'
                 })
             }
 
             let usercheck2 = await users.findOne({ nickname: bodyname })
             if (usercheck2 !== null) {
-                return res.json({
+                return res.status(400).json({
                     message: 'Имя пользователя занято'
                 })
             }

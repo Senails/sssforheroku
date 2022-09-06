@@ -89,7 +89,7 @@ export function authme(req, res) {
             });
 
         } else return res.status(400).json({
-            message: 'Ошибка при авторизации'
+            message: 'Пожалуйста войдите в аккаунт'
         })
     });
 }

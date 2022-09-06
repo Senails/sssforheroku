@@ -20,6 +20,6 @@ export function addcoin(req, res) {
             monetbalance: monetbalance + coins
         })
 
-        await users.updateOne({ _id: ObjectId(bodyID) }, { $set: { monetbalance: monetbalance + coins } });
+        users.updateOne({ _id: ObjectId(bodyID) }, { $set: { monetbalance: monetbalance + coins } });
     });
 }
