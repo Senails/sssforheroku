@@ -89,6 +89,8 @@ export function authme(mongo) {
         //     message: 'Пожалуйста войдите в аккаунт'
         // })
 
+        let token = jwt.sign({ id: user._id }, secretJWT);
+
         res.json({
             token: token,
             nickname: user.nickname,
