@@ -24,7 +24,7 @@ mongoClient.connect(async function(err, mongo) {
     app.post('/auth/me', authme(mongo));
     app.post('/addcoins', checkaddcoin, addcoin(mongo))
 
-
+    mongo.close()
 })
 
 
