@@ -8,8 +8,6 @@ export function checkaddcoin(req, res, next) {
     } else {
         res.status(400).json({
             message: 'Какая-то фигня',
-            key: getkey(),
-            time: new Date().toUTCString()
         })
     }
 }
