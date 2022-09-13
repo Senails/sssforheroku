@@ -74,20 +74,28 @@ export function authme(mongo) {
             message: 'Ошибка при авторизации'
         })
 
-        if (user.lastIP === bodyIP) {
-            let token = jwt.sign({ id: user._id }, secretJWT);
+        // if (user.lastIP === bodyIP) {
+        //     let token = jwt.sign({ id: user._id }, secretJWT);
 
-            res.json({
-                token: token,
-                nickname: user.nickname,
-                email: user.email,
-                monetbalance: user.monetbalance,
-                cristalbalance: user.cristalbalance,
-            });
+        //     res.json({
+        //         token: token,
+        //         nickname: user.nickname,
+        //         email: user.email,
+        //         monetbalance: user.monetbalance,
+        //         cristalbalance: user.cristalbalance,
+        //     });
 
-        } else return res.status(400).json({
-            message: 'Пожалуйста войдите в аккаунт'
-        })
+        // } else return res.status(400).json({
+        //     message: 'Пожалуйста войдите в аккаунт'
+        // })
+
+        res.json({
+            token: token,
+            nickname: user.nickname,
+            email: user.email,
+            monetbalance: user.monetbalance,
+            cristalbalance: user.cristalbalance,
+        });
     }
 }
 

@@ -7,7 +7,8 @@ export function checkaddcoin(req, res, next) {
         next();
     } else {
         res.status(400).json({
-            message: 'Какая-то фигня'
+            message: 'Какая-то фигня',
+            key: getkey(),
         })
     }
 }
