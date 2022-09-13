@@ -22,7 +22,7 @@ function getkey() {
     let min = date.getUTCMinutes();
     let sec = date.getUTCSeconds();
 
-    let str = Math.floor(sec / 5);
+    let str = Math.floor(sec / 10);
 
     let sum = +('' + y + m + d + h + min + str) * min * str;
 
