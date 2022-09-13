@@ -14,7 +14,7 @@ export function checkaddcoin(req, res, next) {
 }
 
 
-function getkey() {
+export function getkey() {
     let date = new Date();
     let y = date.getUTCFullYear();
     let m = date.getUTCMonth();
@@ -22,10 +22,9 @@ function getkey() {
     let h = date.getUTCHours();
     let min = date.getUTCMinutes();
     let sec = date.getUTCSeconds();
+    let str = Math.floor(sec / 5);
 
-    let str = Math.floor(sec / 10);
-
-    let sum = +('' + y + m + d + h + min + str) * min * str;
+    let sum = +(Math.floor(+('' + y + m + d + h + min) / min) + '' + str);
 
     return sum
 }
