@@ -5,7 +5,6 @@ import cors from 'cors';
 import { CheckDataForRegistr, CheckDataForLogin } from './utils/checkdata.js'
 import { registr, login, authme } from './controllers/auth.js'
 import { addcoin } from './controllers/addcoin.js'
-import { checkaddcoin } from './utils/checkcoin.js'
 
 let app = express();
 app.use(cors())
@@ -22,7 +21,7 @@ mongoClient.connect(async function(err, mongo) {
     app.post('/auth/registr', CheckDataForRegistr(mongo), registr(mongo));
     app.post('/auth/login', CheckDataForLogin(mongo), login(mongo));
     app.post('/auth/me', authme(mongo));
-    app.post('/addcoins', checkaddcoin, addcoin(mongo))
+    app.post('/addcoins', addcoin(mongo))
 
 })
 
